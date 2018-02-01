@@ -8,7 +8,7 @@ import { NewsPage } from '../pages/news/news';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { AllCoins } from './../classes/allcoins';
+import { AllCoins } from './../models/Allcoins';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';

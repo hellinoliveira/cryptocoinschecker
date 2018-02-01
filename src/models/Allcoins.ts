@@ -1,4 +1,4 @@
-import { CryptoCoin } from './cryptocoin';
+import { CryptoCoin } from './Cryptocoin';
 
 export class AllCoins {
 
