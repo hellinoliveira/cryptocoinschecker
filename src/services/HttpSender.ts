@@ -1,21 +1,28 @@
-import { AllCoins } from './../models/Allcoins';
-import { CryptoCoin } from './../models/Cryptocoin';
+import { CryptoCoin } from '../models/Cryptocoin';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class HttpSender {
-    url = "https://min-api.cryptocompare.com/data/price?fsym=";
+    apiUrl = "https://min-api.cryptocompare.com/data/price?fsym=";
+    url = "";
 
-    constructor(private http: Http, private allCoins: AllCoins) { }
+    constructor(private http: HttpClient) { }
 
     getSingleData(coinType: CryptoCoin) {
-        if (coinType != null) {
-            return this.http.get(this.url + coinType.token + '&tsyms=BTC,USD,EUR,BRL');
-        } else {
-            return this.http.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR,BRL');
-        }
+        if (coinType == null)
+            this.url = this.apiUrl + 'BTC&tsyms=BTC,USD,EUR,BRL'
+        else
+            this.url = this.apiUrl + coinType.token + '&tsyms=BTC,USD,EUR,BRL'
 
+        return new Promise(resolve => {
+            this.http.get(this.url).subscribe(data => {
+                resolve(data);
+            }, err => {
+                console.log(err);
+            });
+        });
     }
 
 }
