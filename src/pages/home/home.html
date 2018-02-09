@@ -23,13 +23,28 @@
 
 <ion-content padding>
   <h2>Moedas</h2>
-  <div>
+  <!-- <div>
     <ion-segment [(ngModel)]="currentCoin"> {{currentCoin.name}} - {{currentCoin.token}}
       <ion-segment-button *ngFor="let coin of coins; let i = index">
         {{currentCoin.name}}
       </ion-segment-button>
 
     </ion-segment>
-  </div>
+  </div> -->
+
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+        <ion-avatar item-start>
+            <img src="https://www.cryptocompare.com{{item.ImageUrl}}">
+          </ion-avatar>
+          <h2>{{item.FullName}}</h2>
+          <p>{{item.Name}}</p>
+      
+    </ion-item>
+  </ion-list>
+ 
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
