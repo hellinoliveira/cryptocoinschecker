@@ -1,3 +1,4 @@
+import { ListCoinsModule } from './../pages/list-coins/list-coins.module';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,6 +16,7 @@ import { AllCoins } from './../models/Allcoins';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestProvider } from '../providers/rest/rest';
+import { ListCoins } from '../pages/list-coins/list-coins';
 
 
 @NgModule({
@@ -23,12 +25,14 @@ import { RestProvider } from '../providers/rest/rest';
     AboutPage,
     NewsPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ListCoins
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpModule,
+    ListCoinsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -37,7 +41,7 @@ import { RestProvider } from '../providers/rest/rest';
     AboutPage,
     NewsPage,
     HomePage,
-    TabsPage
+    TabsPage,
   ],
   providers: [
     StatusBar,

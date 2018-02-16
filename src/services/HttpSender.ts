@@ -14,7 +14,7 @@ export class HttpSender {
         if (coinType == null)
             this.url = this.apiUrl + 'BTC&tsyms=BTC,USD,EUR,BRL'
         else
-            this.url = this.apiUrl + coinType.token + '&tsyms=BTC,USD,EUR,BRL'
+            this.url = this.apiUrl + coinType.Name + '&tsyms=BTC,USD,EUR,BRL'
 
         return new Promise(resolve => {
             this.http.get(this.url).subscribe(data => {

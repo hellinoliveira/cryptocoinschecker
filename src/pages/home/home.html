@@ -1,48 +1,33 @@
 <ion-header no-border>
   <ion-navbar transparent>
     <ion-title>Home</ion-title>
+
   </ion-navbar>
+
+  <ion-segment [(ngModel)]="favoriteCoins" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="all">
+      All Coins
+    </ion-segment-button>
+    <ion-segment-button value="read">
+      Favorites
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
-<!-- <ion-content>
-  <ion-list inset>
-    <ion-item *ngFor="let user of users">
-      <h2>{{user.name}}</h2>
-      <p>{{user.email}}</p>
-    </ion-item>
-  </ion-list>
-</ion-content> -->
-<ion-content>
-  <ion-list inset>
-    <ion-item *ngFor="let coin of coins">
-      <h2>{{coin.name}}</h2>
-      <h2>{{coin.BRL}}</h2>
-    </ion-item>
-  </ion-list>
-</ion-content>
-
 <ion-content padding>
-  <h2>Moedas</h2>
-  <!-- <div>
-    <ion-segment [(ngModel)]="currentCoin"> {{currentCoin.name}} - {{currentCoin.token}}
-      <ion-segment-button *ngFor="let coin of coins; let i = index">
-        {{currentCoin.name}}
-      </ion-segment-button>
+  <!-- <ion-searchbar (ionInput)="filterCoins($event)"></ion-searchbar> -->
 
-    </ion-segment>
-  </div> -->
-
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-        <ion-avatar item-start>
-            <img src="https://www.cryptocompare.com{{item.ImageUrl}}">
-          </ion-avatar>
-          <h2>{{item.FullName}}</h2>
-          <p>{{item.Name}}</p>
-      
-    </ion-item>
+  <ion-list *ngIf="showAll">
+    <ion-list-header>
+        <list-coins [favoriteItems]="favoriteItems" [item]="item" *ngFor="let item of items"></list-coins>
+    </ion-list-header>
   </ion-list>
- 
+  <ion-list *ngIf="showFavorites">
+    <ion-list-header>
+      <list-coins [item]="item"  [favoriteItems]="favoriteItems" *ngFor="let item of favoriteItems"></list-coins>
+    </ion-list-header>
+  </ion-list>
+
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
