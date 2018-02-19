@@ -1,0 +1,22 @@
+<ion-item>
+  <ion-avatar item-start>
+    <img src="https://www.cryptocompare.com{{item.ImageUrl}}">
+  </ion-avatar>
+  <h2>{{item.FullName}} - {{item.Name}}</h2>
+  <div float-left>
+    <p>{{item.value.USD}}</p>
+    <p>{{item.value.BTC}}</p>
+  </div>
+  <div float-right>
+    <p *ngIf="item.checked; else templateChecked">
+      <ion-icon tappable name="heart"  color="danger" (click)="toogleFavoriteCoin(item)"></ion-icon>
+    </p>
+    <ng-template #templateChecked>
+      <ion-icon tappable name="heart-outline" (click)="toogleFavoriteCoin(item)"></ion-icon>
+    </ng-template>
+
+    <p>
+      <ion-icon name="notifications-outline"></ion-icon>
+    </p>
+  </div>
+</ion-item>

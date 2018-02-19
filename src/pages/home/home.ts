@@ -1,6 +1,5 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CryptoCoin } from './../../models/Cryptocoin';
 import { RestProvider } from '../../providers/rest/rest';
 
 @Component({
@@ -62,17 +61,18 @@ export class HomePage {
     })
   }
 
-  setCoinList() {
+  setCoinList(): void {
     if (this.data != undefined) {
       for (let i = 0; i < this.data.Data.length; i++) {
         let coin = this.data.Data[i].CoinInfo;
         coin['value'] = this.getSingleCoinPrice(coin.Name);
+        coin.checked = this.isFavoriteCoin(coin.Name);
         this.items.push(coin);
       }
     }
   }
 
-  getSingleCoinPrice(name) {
+  getSingleCoinPrice(name): Object {
     let coin = {};
     this.restProvider.getSinglePrice(name)
       .then(data => {
@@ -85,6 +85,17 @@ export class HomePage {
       });
 
     return coin;
+  }
+
+  isFavoriteCoin(value): boolean {
+    let array = JSON.parse(localStorage.getItem('favoriteCoins'));
+    let isFavoriteCoin = false;
+    array.forEach(function (result, index) {
+      if (result['Name'] === value) {
+        isFavoriteCoin = true;
+      }
+    });
+    return isFavoriteCoin;
   }
 
   filterCoins(ev: any) {
@@ -110,23 +121,14 @@ export class HomePage {
   onSegmentChanged(ev: any) {
     this.showAll = !this.showAll;
     this.showFavorites = !this.showFavorites;
+    this.updateFavoritesStatus();
     this.favoriteItems = JSON.parse(localStorage.getItem('favoriteCoins'));
   }
 
-  // toogleFavoriteCoin(ev: any) {
-  //   if (this.favoriteItems == null || this.favoriteItems.indexOf(ev) == -1) {
-  //     this.favoriteItems.push(ev);
-  //   } else {
-  //     this.removeCoin(this.favoriteItems, ev.Name)
-  //   }
-  //   localStorage.setItem('favoriteCoins', JSON.stringify(this.favoriteItems));
-  // }
+  updateFavoritesStatus() {
+    this.items.forEach(element => {
+      element.checked = this.isFavoriteCoin(element.Name);
+    });
+  }
 
-  // removeCoin(array, value) {
-  //   array.forEach(function (result, index) {
-  //     if (result['Name'] === value) {
-  //       array.splice(index, 1);
-  //     }
-  //   });
-  // }
 }
