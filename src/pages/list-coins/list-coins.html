@@ -8,13 +8,12 @@
     <p>{{item.value.BTC}}</p>
   </div>
   <div float-right>
-    <p *ngIf="item.checked; else templateChecked">
-      <ion-icon tappable name="heart"  color="danger" (click)="toogleFavoriteCoin(item)"></ion-icon>
+    <p (click)="toogleFavoriteCoin(item)">
+      <ion-icon *ngIf="item.checked; else templateChecked" name="heart" color="danger"></ion-icon>
+      <ng-template #templateChecked>
+        <ion-icon tappable name="heart-outline"></ion-icon>
+      </ng-template>
     </p>
-    <ng-template #templateChecked>
-      <ion-icon tappable name="heart-outline" (click)="toogleFavoriteCoin(item)"></ion-icon>
-    </ng-template>
-
     <p>
       <ion-icon name="notifications-outline"></ion-icon>
     </p>
